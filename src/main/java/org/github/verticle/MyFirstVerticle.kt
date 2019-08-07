@@ -1,18 +1,23 @@
 package org.github.verticle
 
+import io.netty.handler.codec.http.HttpHeaderNames.*
+import io.netty.handler.codec.http.HttpHeaderValues.*
 import io.vertx.core.AbstractVerticle
+import io.vertx.core.http.HttpServer
 import io.vertx.core.http.HttpServerOptions
 import org.slf4j.LoggerFactory
 
-class MyFirstVerticle: AbstractVerticle() {
+class MyFirstVerticle(private val port: Int): AbstractVerticle() {
+  /** HTTP服务器. */
+  private lateinit var httpServer: HttpServer
+
   override fun start() {
     val httpServerOptions = HttpServerOptions().apply { logActivity = true }
-    val port = 10000
-    vertx
-      .createHttpServer(httpServerOptions)
+    httpServer = vertx.createHttpServer(httpServerOptions)
       .requestHandler {
+        log.info("${it.method()} ${it.path()}")
         it.response().apply {
-          putHeader("content-type", "text/plain")
+          putHeader(CONTENT_TYPE, TEXT_PLAIN)
           end("Hello world!")
         }
       }
