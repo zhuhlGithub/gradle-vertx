@@ -16,7 +16,7 @@ fun main() {
   }
   val vertx = Vertx.vertx(vertxOptions)!!
   val deploymentOptions = DeploymentOptions().apply {
-    instances = 8
+    instances = vertxOptions.eventLoopPoolSize
   }
   vertx.deployVerticle(Supplier<Verticle> { MyFirstVerticle(10000) }, deploymentOptions, arhString)
 }

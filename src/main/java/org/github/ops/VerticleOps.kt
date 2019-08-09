@@ -1,5 +1,3 @@
-@file:Suppress("UNCHECKED_CAST")
-
 package org.github.ops
 
 import io.vertx.core.AsyncResult
@@ -10,4 +8,5 @@ private val log = LoggerFactory.getLogger("ops")!!
 
 val arh = Handler<AsyncResult<*>> { if(it.failed()) log.error(it.cause().message, it.cause()) }
 
+@Suppress("UNCHECKED_CAST")
 val arhString = arh as Handler<AsyncResult<String>>

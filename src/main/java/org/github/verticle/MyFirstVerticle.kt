@@ -12,13 +12,18 @@ class MyFirstVerticle(private val port: Int): AbstractVerticle() {
   private lateinit var httpServer: HttpServer
 
   override fun start() {
-    val httpServerOptions = HttpServerOptions().apply { logActivity = true }
+    val httpServerOptions = HttpServerOptions().apply {
+      logActivity = true
+      isCompressionSupported = true
+      isHandle100ContinueAutomatically = true
+      isDecompressionSupported = true
+    }
     httpServer = vertx.createHttpServer(httpServerOptions)
       .requestHandler {
         log.info("${it.method()} ${it.path()}")
         it.response().apply {
-          putHeader(CONTENT_TYPE, TEXT_PLAIN)
-          end("Hello world!")
+          putHeader(CONTENT_TYPE, APPLICATION_JSON)
+          end("{}")
         }
       }
       .listen(port) {
