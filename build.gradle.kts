@@ -24,6 +24,7 @@ repositories {
 }
 
 val logback: String by System.getProperties()
+val jctools: String by System.getProperties()
 val groovy: String by System.getProperties()
 val guava: String by System.getProperties()
 val vertx: String by System.getProperties()
@@ -31,18 +32,20 @@ val junit: String by System.getProperties()
 
 dependencies {
   implementation("io.vertx:vertx-lang-kotlin-coroutines:$vertx")
+  implementation("ch.qos.logback:logback-classic:$logback")
+  implementation("org.codehaus.groovy:groovy:$groovy")
+  implementation("org.jctools:jctools-core:$jctools")
   implementation("io.vertx:vertx-lang-kotlin:$vertx")
   implementation("io.vertx:vertx-web-client:$vertx")
   implementation("io.vertx:vertx-web:$vertx")
   implementation("com.google.guava:guava:$guava")
-  implementation("org.codehaus.groovy:groovy:$groovy")
-  implementation("ch.qos.logback:logback-classic:$logback")
 
   implementation(kotlin("stdlib-jdk8"))
   implementation(kotlin("reflect"))
 
-  testImplementation("junit:junit:$junit")
   testImplementation("io.vertx:vertx-unit:$vertx")
+  testImplementation("junit:junit:$junit")
+
   compileOnly("io.vertx:vertx-codegen:$vertx")
 }
 

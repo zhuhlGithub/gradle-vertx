@@ -6,6 +6,7 @@ jdk:
 script:
   - ./gradlew clean
   - ./gradlew build
+  - ./gradlew shadowJar
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
